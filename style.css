@@ -1,11 +1,63 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial;
+    background: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+.container {
     max-width: 600px;
     margin: 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.saldo-box {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#saldo {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 input,
 button {
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    cursor: pointer;
+}
+
+.movimentacoes {
+    margin-top: 30px;
+}
+
+li {
+    list-style: none;
+    background: #f7f7f7;
     padding: 10px;
-    margin: 5px;
+    margin-top: 10px;
+    border-radius: 5px;
 }
