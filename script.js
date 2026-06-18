@@ -1,6 +1,20 @@
 const lista = document.getElementById("lista");
 
-// Armazena o saldo total da aplicação
+// criar uma variavel para o saldo e define o valor para 0s
+let saldo = 0;
+
+let movimentacoes =
+    JSON.parse(
+        localStorage.getItem("movimentacoes")
+    ) || [];
+
+for (const movimentacao of movimentacoes) {
+    criarMovimentacao(
+        movimentacao.descricao,
+        movimentacaovalor
+    )
+}
+
 
 function adicionar() {
 
@@ -22,9 +36,38 @@ function adicionar() {
         return;
     }
 
+
+
+    movimentacoes.push({
+        descricao,
+        valor
+    });
+
+    localStorage.setItem(
+        "movimentacoes",
+        JSON.stringify(movimentacoes)
+    );
+
+    //chamando a função movimentação 
+    criarMovimentacao(descricao, valor);
+
+
+    //após adicionar um novo item deixa o campo em branco
+    //para ser preenchido novamente
+    descricaoInput.value = "";
+    valorInput.value = "";
+
+    //volta o cursor do mouse para descrição após adicionar
+    //uma nova alteração
+    descricaoInput.focus();
+}
+
+
+function criarMovimentacao(descricao, valor) {
+
     const item = document.createElement("li");
     const botao = document.createElement("button");
-    
+
     //monta a exibição dos item pela descrição + valor
     //e insere um botao de excluir logo no final do item
     item.textContent =
@@ -39,17 +82,29 @@ function adicionar() {
     lista.appendChild(item);
 
     //função do botão excluir
-    botao.addEventListener("click", function() {
-        
-        //pega o valor do item, e debita do saldo total
-        saldo -= valor  
+    botao.addEventListener("click", function () {
 
-        //Atualiza o saldo exibido na tela
+        saldo -= valor;
+
         document.getElementById("saldo").textContent =
             `R$ ${saldo.toFixed(2)}`;
 
+        movimentacoes = movimentacoes.filter(function (mov) {
+
+            return !(
+                mov.descricao === descricao &&
+                mov.valor === valor
+            );
+
+        });
+
+        localStorage.setItem(
+            "movimentacoes",
+            JSON.stringify(movimentacoes)
+        );
+
         item.remove();
-    
+
     });
 
     //soma o valor de cada item adicionado na lista
@@ -59,17 +114,5 @@ function adicionar() {
     document.getElementById("saldo").textContent =
         `R$ ${saldo.toFixed(2)}`;
 
-
-    //após adicionar um novo item deixa o campo em branco
-    //para ser preenchido novamente
-    descricaoInput.value = "";
-    valorInput.value = "";
-
-    //volta o cursor do mouse para descrição após adicionar
-    //uma nova alteração
-    descricaoInput.focus();
-
-    
-
-
 }
+
