@@ -4,6 +4,8 @@ let saldo = 0;
 
 function adicionar() {
 
+    //FORMULARIO DE PREENCHIMENTO
+
     const descricaoInput =
         document.getElementById("descricao");
 
@@ -21,12 +23,32 @@ function adicionar() {
         return;
     }
 
+    //LISTA DE ITEMS
+
     const item = document.createElement("li");
+    const botao = document.createElement("button");
 
     item.textContent =
         `${descricao} - R$ ${valor.toFixed(2)}`;
 
+    botao.textContent = "Excluir";
+
+    item.appendChild(botao);
+
     lista.appendChild(item);
+
+
+    botao.addEventListener("click", function() {
+        
+        saldo -= valor  
+
+        document.getElementById("saldo").textContent =
+            `R$ ${saldo.toFixed(2)}`;
+
+        item.remove();
+    
+    });
+
 
     saldo += valor;
 
@@ -37,4 +59,8 @@ function adicionar() {
     valorInput.value = "";
 
     descricaoInput.focus();
+
+    
+
+
 }
