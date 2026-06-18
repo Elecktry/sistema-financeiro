@@ -1,11 +1,8 @@
 const lista = document.getElementById("lista");
 
-// criar uma variavel para o saldo e define o valor para 0s
-let saldo = 0;
+// Armazena o saldo total da aplicação
 
 function adicionar() {
-
-    //FORMULARIO DE PREENCHIMENTO
 
     const descricaoInput =
         document.getElementById("descricao");
@@ -19,12 +16,11 @@ function adicionar() {
     const valor =
         Number(valorInput.value);
 
+    //valida se os campos foram preenchidos corretamente
     if (descricao === "" || valorInput.value === "") {
         alert("Preencha todos os campos.");
         return;
     }
-
-    //LISTA DE ITEMS
 
     const item = document.createElement("li");
     const botao = document.createElement("button");
@@ -48,8 +44,7 @@ function adicionar() {
         //pega o valor do item, e debita do saldo total
         saldo -= valor  
 
-        //altera o texto do saldo 
-        //para saldo atual junto com as mudaças excluidas
+        //Atualiza o saldo exibido na tela
         document.getElementById("saldo").textContent =
             `R$ ${saldo.toFixed(2)}`;
 
@@ -60,7 +55,7 @@ function adicionar() {
     //soma o valor de cada item adicionado na lista
     saldo += valor;
 
-    //altera o texto do saldo, mostra o saldo atual 
+    // Atualiza o saldo exibido na tela
     document.getElementById("saldo").textContent =
         `R$ ${saldo.toFixed(2)}`;
 
