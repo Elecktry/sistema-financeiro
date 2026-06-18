@@ -1,8 +1,10 @@
 const lista = document.getElementById("lista");
 
-// criar uma variavel para o saldo e define o valor para 0s
+//Armazena o saldo total da aplicação
 let saldo = 0;
 
+// Recupera as movimentações salvas no navegador.
+// Caso não exista nada salvo, inicia com um array vazio.
 let movimentacoes =
     JSON.parse(
         localStorage.getItem("movimentacoes")
@@ -11,10 +13,17 @@ let movimentacoes =
 for (const movimentacao of movimentacoes) {
     criarMovimentacao(
         movimentacao.descricao,
-        movimentacaovalor
-    )
+        movimentacao.valor
+    );
 }
 
+
+// adicionar()
+// ├── pega input
+// ├── valida
+// ├── salva no array
+// ├── salva no localStorage
+// └── chama criarMovimentacao()
 
 function adicionar() {
 
@@ -37,12 +46,13 @@ function adicionar() {
     }
 
 
-
+    //salva os campos de descrição e valor no localStorage
     movimentacoes.push({
         descricao,
         valor
     });
 
+    // Salva o array atualizado no LocalStorage
     localStorage.setItem(
         "movimentacoes",
         JSON.stringify(movimentacoes)
@@ -62,6 +72,12 @@ function adicionar() {
     descricaoInput.focus();
 }
 
+
+// criarMovimentacao()
+// ├── cria HTML
+// ├── cria botão
+// ├── atualiza saldo
+// └── trata exclusão
 
 function criarMovimentacao(descricao, valor) {
 
@@ -86,9 +102,12 @@ function criarMovimentacao(descricao, valor) {
 
         saldo -= valor;
 
+        //Atualiza o saldo exibido na tela
         document.getElementById("saldo").textContent =
             `R$ ${saldo.toFixed(2)}`;
 
+        // Remove do array a movimentação que possui
+        // a mesma descrição e o mesmo valor do item excluído
         movimentacoes = movimentacoes.filter(function (mov) {
 
             return !(
@@ -98,11 +117,13 @@ function criarMovimentacao(descricao, valor) {
 
         });
 
+        // Salva o array atualizado no LocalStorage
         localStorage.setItem(
             "movimentacoes",
             JSON.stringify(movimentacoes)
         );
 
+        // Remove o item da lista exibida na tela
         item.remove();
 
     });
@@ -115,4 +136,3 @@ function criarMovimentacao(descricao, valor) {
         `R$ ${saldo.toFixed(2)}`;
 
 }
-
