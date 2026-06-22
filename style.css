@@ -73,12 +73,17 @@ h2 {
     gap: 10px;
 }
 
-input,
+
+input, select,
 button {
     padding: 12px;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
+
+/* option:focus{
+    border-color: #b91c1c;
+} */
 
 button {
     cursor: pointer;

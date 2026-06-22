@@ -12,7 +12,8 @@ for (const movimentacao of movimentacoes) {
         movimentacao.descricao,
         movimentacao.valor,
         movimentacao.tipo,
-        movimentacao.id
+        movimentacao.id,
+        movimentacao.categoria
     );
 }
 
@@ -35,6 +36,9 @@ function adicionar() {
     const valorInput =
         document.getElementById("valor");
 
+    const categoriaInput =
+        document.getElementById("categoria");
+
 
     //define o valor deles, filtrando pelo value que queremos
     const descricao =
@@ -43,30 +47,34 @@ function adicionar() {
     const valor =
         Number(valorInput.value);
 
+
+    const categoria =
+        categoriaInput.value;
+
+
     //checkbox
     const tipoInput = document.querySelector('input[name="tipo"]:checked');
 
-    //validação
-    if (!tipoInput) {
-        alert("Selecione receita ou despesa.");
-        return;
-    }
 
     const tipo = tipoInput.value;
 
 
     //valida se os campos foram preenchidos corretamente
-    if (descricao === "" || valorInput.value === "") {
+    if (
+        descricao === "" ||
+        valorInput.value === "" ||
+        categoria === ""
+    ) {
         alert("Preencha todos os campos.");
         return;
     }
-
 
     const novaMovimentacao = {
         id: Date.now(),
         descricao,
         valor,
-        tipo
+        tipo,
+        categoria
     };
 
 
@@ -80,7 +88,7 @@ function adicionar() {
     );
 
     //chamando a função movimentação 
-    criarMovimentacao(descricao, valor, tipo, novaMovimentacao.id);
+    criarMovimentacao(descricao, valor, tipo, categoria, novaMovimentacao.id);
     atualizarSaldo();
 
 
@@ -101,7 +109,7 @@ function adicionar() {
 // ├── atualiza saldo
 // └── trata exclusão
 
-function criarMovimentacao(descricao, valor, tipo, id) {
+function criarMovimentacao(descricao, valor, tipo, categoria, id) {
 
     const item = document.createElement("li");
     const texto = document.createElement("span");
@@ -124,7 +132,7 @@ function criarMovimentacao(descricao, valor, tipo, id) {
 
 
     texto.textContent =
-        `${descricaoFormatada}  ${sinal} R$ ${formatarMoeda(valor)}`;
+        `${descricaoFormatada}  ${sinal} R$ ${formatarMoeda(valor)} ${categoria}`;
 
     botao.textContent = "Excluir";
 

@@ -41,7 +41,7 @@
                 <p id="saldo">R$ 0,00</p>
             </div>
         </section>
-        
+
         <form class="formulario">
             <label for="descricao">Descrição</label>
             <input type="text" id="descricao" placeholder="Descrição">
@@ -49,9 +49,22 @@
             <label for="valor">Valor</label>
             <input type="number" id="valor" placeholder="Valor">
 
+            <label for="categoria">Categoria</label>
+
+            <select id="categoria">
+                <option value="">Selecione uma categoria</option>
+                <option value="alimentacao">Alimentação</option>
+                <option value="transporte">Transporte</option>
+                <option value="moradia">Moradia</option>
+                <option value="lazer">Lazer</option>
+                <option value="trabalho">Trabalho</option>
+                <option value="outros">Outros</option>
+            </select>
+
             <button type="button" onclick="adicionar()">
                 Adicionar
             </button>
+
             <div class="tipos">
                 <label>
                     <input type="radio" name="tipo" value="receita" checked>
