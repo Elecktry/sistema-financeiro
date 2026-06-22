@@ -63,6 +63,18 @@ h2 {
     font-weight: bold;
     margin-top: 10px;
 }
+/* formulario */
+
+.formulario > button {
+    background-color: rgb(88, 152, 247);
+    color: white;
+    border: none;
+    font-weight: bold;
+}
+
+.formulario > button:hover {
+    opacity: 0.9;
+}
 
 .formulario {
     display: flex;
@@ -125,4 +137,10 @@ li button {
 
 li button:hover {
     opacity: 0.85;
+}
+
+.tipos{
+    display: flex;
+    gap: 12px;
+    align-items: center;
 }

@@ -106,6 +106,9 @@ function criarMovimentacao(descricao, valor, tipo, id) {
     const item = document.createElement("li");
     const texto = document.createElement("span");
     const botao = document.createElement("button");
+    const descricaoFormatada =
+        descricao.charAt(0).toUpperCase() + descricao.slice(1);
+
 
     let sinal;
 
@@ -117,8 +120,11 @@ function criarMovimentacao(descricao, valor, tipo, id) {
         item.classList.add("despesa");
     }
 
+
+
+
     texto.textContent =
-        `${descricao}  ${sinal} R$ ${valor.toFixed(2)}`;
+        `${descricaoFormatada}  ${sinal} R$ ${formatarMoeda(valor)}`;
 
     botao.textContent = "Excluir";
 
@@ -160,5 +166,14 @@ function atualizarSaldo() {
 
     // Atualiza o saldo exibido na tela
     document.getElementById("saldo").textContent =
-        `R$ ${saldo.toFixed(2)} `;
+        formatarMoeda(saldo)
+}
+
+//formatação da moeda pt-br
+
+function formatarMoeda(valor) {
+    return valor.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    });
 }
