@@ -37,9 +37,20 @@
             <label for="valor">Valor</label>
             <input type="number" id="valor" placeholder="Valor">
 
-            <button onclick="adicionar()">
+            <button type="button" onclick="adicionar()">
                 Adicionar
             </button>
+            <div>
+                <label>
+                    <input type="radio" name="tipo" value="receita" checked>
+                    Receita
+                </label>
+
+                <label>
+                    <input type="radio" name="tipo" value="despesa">
+                    Despesa
+                </label>
+            </div>
         </form>
 
         <section class="movimentacoes">

@@ -1,8 +1,5 @@
 const lista = document.getElementById("lista");
 
-//Armazena o saldo total da aplicação
-let saldo = 0;
-
 // Recupera as movimentações salvas no navegador.
 // Caso não exista nada salvo, inicia com um array vazio.
 let movimentacoes =
@@ -13,9 +10,13 @@ let movimentacoes =
 for (const movimentacao of movimentacoes) {
     criarMovimentacao(
         movimentacao.descricao,
-        movimentacao.valor
+        movimentacao.valor,
+        movimentacao.tipo,
+        movimentacao.id
     );
 }
+
+atualizarSaldo()
 
 
 // adicionar()
@@ -27,17 +28,32 @@ for (const movimentacao of movimentacoes) {
 
 function adicionar() {
 
+    //salva os conteudo digitado no form    
     const descricaoInput =
         document.getElementById("descricao");
 
     const valorInput =
         document.getElementById("valor");
 
+
+    //define o valor deles, filtrando pelo value que queremos
     const descricao =
         descricaoInput.value;
 
     const valor =
         Number(valorInput.value);
+
+    //checkbox
+    const tipoInput = document.querySelector('input[name="tipo"]:checked');
+
+    //validação
+    if (!tipoInput) {
+        alert("Selecione receita ou despesa.");
+        return;
+    }
+
+    const tipo = tipoInput.value;
+
 
     //valida se os campos foram preenchidos corretamente
     if (descricao === "" || valorInput.value === "") {
@@ -46,11 +62,16 @@ function adicionar() {
     }
 
 
-    //salva os campos de descrição e valor no localStorage
-    movimentacoes.push({
+    const novaMovimentacao = {
+        id: Date.now(),
         descricao,
-        valor
-    });
+        valor,
+        tipo
+    };
+
+
+    //salva os campos de descrição e valor no localStorage
+    movimentacoes.push(novaMovimentacao);
 
     // Salva o array atualizado no LocalStorage
     localStorage.setItem(
@@ -59,7 +80,8 @@ function adicionar() {
     );
 
     //chamando a função movimentação 
-    criarMovimentacao(descricao, valor);
+    criarMovimentacao(descricao, valor, tipo, novaMovimentacao.id);
+    atualizarSaldo();
 
 
     //após adicionar um novo item deixa o campo em branco
@@ -79,7 +101,7 @@ function adicionar() {
 // ├── atualiza saldo
 // └── trata exclusão
 
-function criarMovimentacao(descricao, valor) {
+function criarMovimentacao(descricao, valor, tipo, id) {
 
     const item = document.createElement("li");
     const botao = document.createElement("button");
@@ -87,8 +109,8 @@ function criarMovimentacao(descricao, valor) {
     //monta a exibição dos item pela descrição + valor
     //e insere um botao de excluir logo no final do item
     item.textContent =
-        `${descricao} - R$ ${valor.toFixed(2)}`;
-
+        `${descricao} - R$ ${valor.toFixed(2)} (${tipo})`;
+    
     botao.textContent = "Excluir";
 
     // ul =  listaa
@@ -100,41 +122,32 @@ function criarMovimentacao(descricao, valor) {
     //função do botão excluir
     botao.addEventListener("click", function () {
 
-        saldo -= valor;
+        movimentacoes = movimentacoes.filter(mov => mov.id !== id);
 
-        //Atualiza o saldo exibido na tela
-        document.getElementById("saldo").textContent =
-            `R$ ${saldo.toFixed(2)}`;
-
-        // Remove do array a movimentação que possui
-        // a mesma descrição e o mesmo valor do item excluído
-        movimentacoes = movimentacoes.filter(function (mov) {
-
-            return !(
-                mov.descricao === descricao &&
-                mov.valor === valor
-            );
-
-        });
-
-        // Salva o array atualizado no LocalStorage
         localStorage.setItem(
             "movimentacoes",
             JSON.stringify(movimentacoes)
         );
 
-        // Remove o item da lista exibida na tela
         item.remove();
 
+        atualizarSaldo();
     });
 
-    //soma o valor de cada item adicionado na lista
-    saldo += valor;
+}
+
+function atualizarSaldo() {
+    saldo = 0;
+
+    for (const mov of movimentacoes) {
+        if (mov.tipo === "receita") {
+            saldo += mov.valor;
+        } else {
+            saldo -= mov.valor;
+        }
+    }
 
     // Atualiza o saldo exibido na tela
     document.getElementById("saldo").textContent =
-        `R$ ${saldo.toFixed(2)}`;
-
-    console.log(typeof valor)
-
+        `R$ ${saldo.toFixed(2)} `;
 }
