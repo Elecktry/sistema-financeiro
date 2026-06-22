@@ -135,4 +135,6 @@ function criarMovimentacao(descricao, valor) {
     document.getElementById("saldo").textContent =
         `R$ ${saldo.toFixed(2)}`;
 
+    console.log(typeof valor)
+
 }

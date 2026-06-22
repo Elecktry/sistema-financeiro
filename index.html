@@ -21,38 +21,34 @@
 
     </nav>
 
-    <div class="container">
+    <main class="container">
 
         <h1>💰 Controle Financeiro</h1>
 
-        <div class="saldo-box">
+        <section class="saldo-box">
             <h2>Saldo Atual</h2>
             <p id="saldo">R$ 0,00</p>
-        </div>
+        </section>
 
-        <div class="formulario">
-            <input
-                type="text"
-                id="descricao"
-                placeholder="Descrição">
+        <form class="formulario">
+            <label for="descricao">Descrição</label>
+            <input type="text" id="descricao" placeholder="Descrição">
 
-            <input
-                type="number"
-                id="valor"
-                placeholder="Valor">
+            <label for="valor">Valor</label>
+            <input type="number" id="valor" placeholder="Valor">
 
             <button onclick="adicionar()">
                 Adicionar
             </button>
-        </div>
+        </form>
 
-        <div class="movimentacoes">
+        <section class="movimentacoes">
             <h2>Movimentações</h2>
 
             <ul id="lista"></ul>
-        </div>
+        </section>
 
-    </div>
+    </main>
 
     <script src="script.js"></script>
 
