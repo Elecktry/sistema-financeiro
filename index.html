@@ -25,11 +25,23 @@
 
         <h1>💰 Controle Financeiro</h1>
 
-        <section class="saldo-box">
-            <h2>Saldo Atual</h2>
-            <p id="saldo">R$ 0,00</p>
-        </section>
+        <section class="resumo">
+            <div class="card">
+                <h3>Receitas</h3>
+                <p id="total-receitas">R$ 0,00</p>
+            </div>
 
+            <div class="card">
+                <h3>Despesas</h3>
+                <p id="total-despesas">R$ 0,00</p>
+            </div>
+
+            <div class="card">
+                <h3>Saldo</h3>
+                <p id="saldo">R$ 0,00</p>
+            </div>
+        </section>
+        
         <form class="formulario">
             <label for="descricao">Descrição</label>
             <input type="text" id="descricao" placeholder="Descrição">

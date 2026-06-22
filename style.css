@@ -53,16 +53,7 @@ h2 {
     text-align: center;
 }
 
-.saldo-box {
-    text-align: center;
-    margin-bottom: 20px;
-}
 
-#saldo {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-top: 10px;
-}
 /* formulario */
 
 .formulario > button {
@@ -143,4 +134,38 @@ li button:hover {
     display: flex;
     gap: 12px;
     align-items: center;
+}
+
+/* style dos cards */
+
+.resumo {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.card {
+    background: #f7f7f7;
+    padding: 18px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.card h3 {
+    margin-bottom: 8px;
+}
+
+#total-receitas {
+    color: #15803d;
+    font-weight: bold;
+}
+
+#total-despesas {
+    color: #b91c1c;
+    font-weight: bold;
+}
+
+#saldo {
+    font-weight: bold;
 }

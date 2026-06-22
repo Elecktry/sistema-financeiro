@@ -154,19 +154,27 @@ function criarMovimentacao(descricao, valor, tipo, id) {
 }
 
 function atualizarSaldo() {
-    saldo = 0;
+    let totalReceitas = 0;
+    let totalDespesas = 0;
 
     for (const mov of movimentacoes) {
         if (mov.tipo === "receita") {
-            saldo += mov.valor;
+            totalReceitas += mov.valor;
         } else {
-            saldo -= mov.valor;
+            totalDespesas += mov.valor;
         }
     }
 
-    // Atualiza o saldo exibido na tela
+    const saldo = totalReceitas - totalDespesas;
+
+    document.getElementById("total-receitas").textContent =
+        formatarMoeda(totalReceitas);
+
+    document.getElementById("total-despesas").textContent =
+        formatarMoeda(totalDespesas);
+
     document.getElementById("saldo").textContent =
-        formatarMoeda(saldo)
+        formatarMoeda(saldo);
 }
 
 //formatação da moeda pt-br
