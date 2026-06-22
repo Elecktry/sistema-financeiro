@@ -104,19 +104,30 @@ function adicionar() {
 function criarMovimentacao(descricao, valor, tipo, id) {
 
     const item = document.createElement("li");
+    const texto = document.createElement("span");
     const botao = document.createElement("button");
 
-    //monta a exibição dos item pela descrição + valor
-    //e insere um botao de excluir logo no final do item
-    item.textContent =
-        `${descricao} - R$ ${valor.toFixed(2)} (${tipo})`;
-    
+    let sinal;
+
+    if (tipo === "receita") {
+        sinal = "+";
+        item.classList.add("receita");
+    } else {
+        sinal = "-";
+        item.classList.add("despesa");
+    }
+
+    texto.textContent =
+        `${descricao}  ${sinal} R$ ${valor.toFixed(2)}`;
+
     botao.textContent = "Excluir";
 
     // ul =  listaa
     // └── li = item
     //     └── button = botão de exclusão
+    item.appendChild(texto);
     item.appendChild(botao);
+
     lista.appendChild(item);
 
     //função do botão excluir

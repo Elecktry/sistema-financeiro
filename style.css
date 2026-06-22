@@ -96,3 +96,33 @@ li {
     align-items: center;
     gap: 12px;
 }
+
+/* style de receitas e despesas */
+li.receita {
+    border-left: 5px solid #22c55e;
+}
+
+li.receita span {
+    color: #15803d;
+    font-weight: bold;
+}
+
+li.despesa {
+    border-left: 5px solid #ef4444;
+}
+
+li.despesa span {
+    color: #b91c1c;
+    font-weight: bold;
+}
+
+li button {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+}
+
+li button:hover {
+    opacity: 0.85;
+}
