@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
+
 body {
     background: #f4f4f4;
     font-family: Arial, sans-serif;
@@ -35,15 +36,15 @@ span {
     display: block;
 }
 
-.profile{
+.profile {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .container {
-    max-width: 600px;
-    margin: 40px auto;
+    max-width: auto;
+    margin: 4rem;
     background: white;
     padding: 20px;
     border-radius: 10px;
@@ -56,37 +57,64 @@ h2 {
 
 /* formulario */
 
-.formulario > button {
+.formulario>button {
     background-color: rgb(88, 152, 247);
     color: white;
     border: none;
     font-weight: bold;
-}
-
-.formulario > button:hover {
-    opacity: 0.9;
+    grid-column: 1 / -1;
 }
 
 .formulario {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    max-width: 900px;
+    margin: 24px 0;
+}
+
+.campo {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
 }
 
+.campo label,
+.campo-label {
+    font-weight: 600;
+}
 
-input, select,
-button {
-    padding: 12px;
-    border-radius: 5px;
+.campo input,
+.campo select {
+    width: 100%;
+    min-height: 42px;
+}
+
+.tipos {
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 0 12px;
     border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-/* option:focus{
-    border-color: #b91c1c;
-} */
+.tipos label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: normal;
+}
 
-button {
-    cursor: pointer;
+.tipos input {
+    width: auto;
+    min-height: auto;
+}
+
+.formulario button {
+    grid-column: 1 / -1;
+    min-height: 42px;
 }
 
 .movimentacoes {
@@ -99,7 +127,7 @@ li {
     padding: 10px;
     margin-top: 10px;
     border-radius: 5px;
-      display: flex;
+    display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 12px;
@@ -135,7 +163,7 @@ li button:hover {
     opacity: 0.85;
 }
 
-.tipos{
+.tipos {
     display: flex;
     gap: 12px;
     align-items: center;
@@ -173,4 +201,193 @@ li button:hover {
 
 #saldo {
     font-weight: bold;
+}
+
+/* style dos graficos por categoria */
+
+.graficos {
+    margin-top: 24px;
+}
+
+.grafico-card {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+}
+
+.grafico-card h2 {
+    margin-bottom: 20px;
+}
+
+/* MODAL */
+
+.botao-nova-movimentacao {
+    margin: 24px 0;
+    padding: 12px 18px;
+    background-color: rgb(88, 152, 247);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botao-nova-movimentacao:hover {
+    opacity: 0.9;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.45);
+}
+
+.modal.ativo {
+    display: flex;
+}
+
+.modal-conteudo {
+    width: min(100%, 650px);
+    max-height: 90vh;
+    overflow-y: auto;
+
+    padding: 28px;
+    background-color: white;
+    border-radius: 12px;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.modal-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 24px;
+}
+
+.modal-cabecalho h2 {
+    text-align: left;
+}
+
+.fechar-modal {
+    padding: 4px 10px;
+    background: transparent;
+    border: none;
+
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.formulario {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.campo label,
+.campo legend {
+    font-weight: 600;
+}
+
+.campo input,
+.campo select {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.tipo-campo {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.tipos {
+    min-height: 44px;
+
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    padding: 0 12px;
+
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.tipos label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.tipos input {
+    width: auto;
+    min-height: auto;
+}
+
+.modal-acoes {
+    grid-column: 1 / -1;
+
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+
+    margin-top: 10px;
+}
+
+.modal-acoes button {
+    min-width: 120px;
+    padding: 11px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botao-cancelar {
+    background-color: white;
+    border: 1px solid #ccc;
+}
+
+.botao-adicionar {
+    background-color: rgb(88, 152, 247);
+    color: white;
+    border: none;
+}
+
+@media (max-width: 650px) {
+    .formulario {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-acoes {
+        grid-column: auto;
+    }
+
+    .modal-acoes button {
+        flex: 1;
+    }
 }

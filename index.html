@@ -42,41 +42,125 @@
             </div>
         </section>
 
-        <form class="formulario">
-            <label for="descricao">Descrição</label>
-            <input type="text" id="descricao" placeholder="Descrição">
+        <button type="button" id="abrir-modal" class="botao-nova-movimentacao">
+            + Nova movimentação
+        </button>
+        <div id="modal" class="modal">
 
-            <label for="valor">Valor</label>
-            <input type="number" id="valor" placeholder="Valor">
+            <div class="modal-conteudo">
 
-            <label for="categoria">Categoria</label>
+                <div class="modal-cabecalho">
+                    <h2>Nova movimentação</h2>
 
-            <select id="categoria">
-                <option value="">Selecione uma categoria</option>
-                <option value="alimentacao">Alimentação</option>
-                <option value="transporte">Transporte</option>
-                <option value="moradia">Moradia</option>
-                <option value="lazer">Lazer</option>
-                <option value="trabalho">Trabalho</option>
-                <option value="outros">Outros</option>
-            </select>
+                    <button type="button" id="fechar-modal" class="fechar-modal" aria-label="Fechar modal">
+                        &times;
+                    </button>
+                </div>
+
+                <form class="formulario">
+
+                    <div class="campo">
+                        <label for="descricao">Descrição</label>
+
+                        <input type="text" id="descricao" placeholder="Ex.: Salário, aluguel...">
+                    </div>
+
+                    <div class="campo">
+                        <label for="valor">Valor</label>
+
+                        <input type="number" id="valor" placeholder="Ex.: 1200,00" min="0" step="0.01">
+                    </div>
+
+                    <div class="campo">
+                        <label for="categoria">Categoria</label>
+
+                        <select id="categoria">
+                            <option value="">Selecione uma categoria</option>
+                            <option value="alimentacao">Alimentação</option>
+                            <option value="transporte">Transporte</option>
+                            <option value="moradia">Moradia</option>
+                            <option value="lazer">Lazer</option>
+                            <option value="trabalho">Trabalho</option>
+                            <option value="outros">Outros</option>
+                        </select>
+                    </div>
+
+                    <fieldset class="campo tipo-campo">
+                        <legend>Tipo</legend>
+
+                        <div class="tipos">
+                            <label>
+                                <input type="radio" name="tipo" value="receita" checked>
+                                Receita
+                            </label>
+
+                            <label>
+                                <input type="radio" name="tipo" value="despesa">
+                                Despesa
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <div class="modal-acoes">
+                        <button type="button" id="cancelar-modal" class="botao-cancelar">
+                            Cancelar
+                        </button>
+
+                        <button type="button" onclick="adicionar()" class="botao-adicionar">
+                            Adicionar
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+        <!-- <form class="formulario">
+
+            <div class="campo">
+                <label for="descricao">Descrição</label>
+                <input type="text" id="descricao" placeholder="Descrição">
+            </div>
+
+            <div class="campo">
+                <label for="valor">Valor</label>
+                <input type="number" id="valor" placeholder="Valor">
+            </div>
+
+            <div class="campo">
+                <label for="categoria">Categoria</label>
+                <select id="categoria">
+                    <option value="">Selecione uma categoria</option>
+                    <option value="alimentacao">Alimentação</option>
+                    <option value="transporte">Transporte</option>
+                    <option value="moradia">Moradia</option>
+                    <option value="lazer">Lazer</option>
+                    <option value="trabalho">Trabalho</option>
+                    <option value="outros">Outros</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label class="campo-label" for="tipos">Tipo</label>
+                <div class="tipos">
+                    <label>
+                        <input type="radio" name="tipo" value="receita" checked>
+                        Receita
+                    </label>
+
+                    <label>
+                        <input type="radio" name="tipo" value="despesa">
+                        Despesa
+                    </label>
+                </div>
+            </div>
 
             <button type="button" onclick="adicionar()">
                 Adicionar
             </button>
 
-            <div class="tipos">
-                <label>
-                    <input type="radio" name="tipo" value="receita" checked>
-                    Receita
-                </label>
-
-                <label>
-                    <input type="radio" name="tipo" value="despesa">
-                    Despesa
-                </label>
-            </div>
-        </form>
+        </form> -->
 
         <section class="movimentacoes">
             <h2>Movimentações</h2>
@@ -84,8 +168,15 @@
             <ul id="lista"></ul>
         </section>
 
-    </main>
+        <section class="graficos">
+            <div class="grafico-card">
+                <h2>Despesas por categoria</h2>
+                <canvas id="grafico-categorias"></canvas>
+            </div>
+        </section>
 
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
 
 </body>

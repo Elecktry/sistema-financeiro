@@ -1,5 +1,66 @@
 const lista = document.getElementById("lista");
 
+//MODAL ADICIONAR MAIS MOVIMENTAÇÕES
+const modal = document.getElementById("modal");
+
+const botaoAbrirModal =
+    document.getElementById("abrir-modal");
+
+const botaoFecharModal =
+    document.getElementById("fechar-modal");
+
+const botaoCancelarModal =
+    document.getElementById("cancelar-modal");
+
+
+//FUNÇÃO MODAL
+function abrirModal() {
+    modal.classList.add("ativo");
+
+    document
+        .getElementById("descricao")
+        .focus();
+}
+
+function fecharModal() {
+    modal.classList.remove("ativo");
+}
+
+//CONECTANDO OS BOTÕES ÀS FUNÇÕES
+
+botaoAbrirModal.addEventListener(
+    "click",
+    abrirModal
+);
+
+botaoFecharModal.addEventListener(
+    "click",
+    fecharModal
+);
+
+botaoCancelarModal.addEventListener(
+    "click",
+    fecharModal
+);
+
+//FECHA O MODAL CLICANDO NA PARTE ESCURA DO MODAL
+modal.addEventListener("click", function (event) {
+    if (event.target === modal) {
+        fecharModal();
+    }
+});
+
+//FECHA O MODAL CLICANDO NA A TECLA ESC
+document.addEventListener("keydown", function (event) {
+    if (
+        event.key === "Escape" &&
+        modal.classList.contains("ativo")
+    ) {
+        fecharModal();
+    }
+});
+
+
 // Recupera as movimentações salvas no navegador.
 // Caso não exista nada salvo, inicia com um array vazio.
 let movimentacoes =
@@ -12,12 +73,64 @@ for (const movimentacao of movimentacoes) {
         movimentacao.descricao,
         movimentacao.valor,
         movimentacao.tipo,
-        movimentacao.id,
-        movimentacao.categoria
+        movimentacao.categoria,
+        movimentacao.id
     );
 }
 
+let graficoCategorias;
+
+
+function atualizarGraficoCategorias() {
+    const despesas = movimentacoes.filter(function (mov) {
+        return mov.tipo === "despesa";
+    });
+
+    const totaisPorCategoria = {};
+
+    for (const despesa of despesas) {
+        const categoria = despesa.categoria;
+
+        if (totaisPorCategoria[categoria]) {
+            totaisPorCategoria[categoria] += despesa.valor;
+        } else { 
+            totaisPorCategoria[categoria] = despesa.valor;
+        }
+    }
+
+    const categorias = Object.keys(totaisPorCategoria);
+    const valores = Object.values(totaisPorCategoria);
+
+    if (graficoCategorias) {
+        graficoCategorias.destroy();
+    }
+
+    const canvas =
+        document.getElementById("grafico-categorias");
+
+    graficoCategorias = new Chart(canvas, {
+        type: "doughnut",
+
+        data: {
+            labels: categorias,
+
+            datasets: [
+                {
+                    label: "Despesas",
+                    data: valores
+                }
+            ]
+        },
+
+        options: {
+            responsive: true
+        }
+    });
+}
+
 atualizarSaldo()
+
+atualizarGraficoCategorias()
 
 
 // adicionar()
@@ -89,7 +202,11 @@ function adicionar() {
 
     //chamando a função movimentação 
     criarMovimentacao(descricao, valor, tipo, categoria, novaMovimentacao.id);
+
     atualizarSaldo();
+    atualizarGraficoCategorias()
+
+    fecharModal();
 
 
     //após adicionar um novo item deixa o campo em branco
@@ -97,9 +214,7 @@ function adicionar() {
     descricaoInput.value = "";
     valorInput.value = "";
 
-    //volta o cursor do mouse para descrição após adicionar
-    //uma nova alteração
-    descricaoInput.focus();
+
 }
 
 
@@ -157,6 +272,7 @@ function criarMovimentacao(descricao, valor, tipo, categoria, id) {
         item.remove();
 
         atualizarSaldo();
+        atualizarGraficoCategorias()
     });
 
 }
