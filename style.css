@@ -58,7 +58,7 @@ h2 {
 /* formulario */
 
 .formulario>button {
-    background-color: rgb(88, 152, 247);
+    background-color: #5898f7;
     color: white;
     border: none;
     font-weight: bold;
@@ -179,10 +179,21 @@ li button:hover {
 }
 
 .card {
+    margin-top: 20px;
     background: #f7f7f7;
     padding: 18px;
     border-radius: 8px;
     text-align: center;
+}
+
+.card:nth-child(1) {
+    border-left: 4px solid #22c55e;
+}
+.card:nth-child(2) {
+    border-left: 4px solid #ef4444;
+}
+.card:nth-child(3) {
+    border-left: 4px solid #5898f7;
 }
 
 .card h3 {

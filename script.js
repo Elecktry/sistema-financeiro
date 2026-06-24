@@ -247,7 +247,7 @@ function criarMovimentacao(descricao, valor, tipo, categoria, id) {
 
 
     texto.textContent =
-        `${descricaoFormatada}  ${sinal} R$ ${formatarMoeda(valor)} ${categoria}`;
+        `${descricaoFormatada}  ${sinal} ${formatarMoeda(valor)} ${categoria}`;
 
     botao.textContent = "Excluir";
 
