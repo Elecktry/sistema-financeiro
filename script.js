@@ -68,6 +68,18 @@ let movimentacoes =
         localStorage.getItem("movimentacoes")
     ) || [];
 
+movimentacoes = movimentacoes.map(function (movimentacao) {
+    return {
+        ...movimentacao,
+        data: movimentacao.data || new Date().toISOString()
+    };
+});
+
+localStorage.setItem(
+    "movimentacoes",
+    JSON.stringify(movimentacoes)
+);
+
 for (const movimentacao of movimentacoes) {
     criarMovimentacao(
         movimentacao.descricao,
@@ -187,12 +199,15 @@ function adicionar() {
         return;
     }
 
+
+
     const novaMovimentacao = {
         id: Date.now(),
         descricao,
         valor,
         tipo,
-        categoria
+        categoria,
+        data: new Date().toISOString()
     };
 
 
