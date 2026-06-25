@@ -93,7 +93,7 @@ function atualizarGraficoCategorias() {
 
         if (totaisPorCategoria[categoria]) {
             totaisPorCategoria[categoria] += despesa.valor;
-        } else { 
+        } else {
             totaisPorCategoria[categoria] = despesa.valor;
         }
     }
@@ -179,6 +179,11 @@ function adicionar() {
         categoria === ""
     ) {
         alert("Preencha todos os campos.");
+        return;
+    }
+
+    if (valor > 999999999) {
+        alert("O valor informado é muito alto.");
         return;
     }
 
@@ -309,3 +314,12 @@ function formatarMoeda(valor) {
         currency: "BRL"
     });
 }
+//formata o numero para nao quebrar os cards
+// function formatarValorCompacto(valor) {
+//     return new Intl.NumberFormat("pt-BR", {
+//         style: "currency",
+//         currency: "BRL",
+//         notation: "compact",
+//         maximumFractionDigits: 1
+//     }).format(valor);
+// }
