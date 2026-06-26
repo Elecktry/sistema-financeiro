@@ -326,7 +326,8 @@ function atualizarGraficoMensal() {
 
         gastosPorMes[mes] += Number(movimentacao.valor);
     }
-
+    const posicaoLegenda =
+        window.innerWidth <= 600 ? "bottom" : "right";
     const meses = Object.keys(gastosPorMes);
     const valores = Object.values(gastosPorMes);
 
@@ -357,21 +358,31 @@ function atualizarGraficoMensal() {
 
             plugins: {
                 legend: {
-                    display: false
+                    position: posicaoLegenda,
+
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: "circle",
+                        padding: 12,
+                        boxWidth: 8,
+                        font: {
+                            size: 11
+                        }
+                    }
                 }
             },
 
 
             scales: {
-                x: {
-                    ticks: {
-                        maxRotation: 35,
-                        minRotation: 35
+                    x: {
+                        ticks: {
+                            maxRotation: 35,
+                            minRotation: 35
+                        }
                     }
                 }
             }
-        }
-    });
+        });
 }
 
 function atualizarGraficoCategorias() {
