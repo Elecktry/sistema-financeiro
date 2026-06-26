@@ -218,6 +218,8 @@ li button:hover {
 /* style dos graficos por categoria */
 
 .graficos {
+    display: flex;
+    align-items: center ;
     margin-top: 24px;
 }
 
@@ -227,10 +229,15 @@ li button:hover {
     padding: 20px;
     background-color: #f7f7f7;
     border-radius: 10px;
+    
 }
 
 .grafico-card h2 {
     margin-bottom: 20px;
+}
+
+.grafico-mensal{
+    width: 130px;
 }
 
 /* MODAL */
@@ -387,7 +394,19 @@ li button:hover {
 .botao-adicionar {
     background-color: rgb(88, 152, 247);
     color: white;
-    border: none;
+     border: none;
+}
+
+/* responsividade do site */ 
+
+@media (max-width: 800px) {
+    .graficos {
+        grid-template-columns: 1fr;
+    }
+
+    .grafico-container {
+        height: 260px;
+    }
 }
 
 @media (max-width: 650px) {

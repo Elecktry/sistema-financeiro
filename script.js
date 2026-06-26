@@ -1,5 +1,8 @@
 const lista = document.getElementById("lista");
 
+let graficoCategorias;
+let graficoMensal;
+
 //MODAL ADICIONAR MAIS MOVIMENTAÇÕES
 const modal = document.getElementById("modal");
 
@@ -90,55 +93,8 @@ for (const movimentacao of movimentacoes) {
     );
 }
 
-let graficoCategorias;
 
 
-function atualizarGraficoCategorias() {
-    const despesas = movimentacoes.filter(function (mov) {
-        return mov.tipo === "despesa";
-    });
-
-    const totaisPorCategoria = {};
-
-    for (const despesa of despesas) {
-        const categoria = despesa.categoria;
-
-        if (totaisPorCategoria[categoria]) {
-            totaisPorCategoria[categoria] += despesa.valor;
-        } else {
-            totaisPorCategoria[categoria] = despesa.valor;
-        }
-    }
-
-    const categorias = Object.keys(totaisPorCategoria);
-    const valores = Object.values(totaisPorCategoria);
-
-    if (graficoCategorias) {
-        graficoCategorias.destroy();
-    }
-
-    const canvas =
-        document.getElementById("grafico-categorias");
-
-    graficoCategorias = new Chart(canvas, {
-        type: "doughnut",
-
-        data: {
-            labels: categorias,
-
-            datasets: [
-                {
-                    label: "Despesas",
-                    data: valores
-                }
-            ]
-        },
-
-        options: {
-            responsive: true
-        }
-    });
-}
 
 atualizarSaldo()
 
@@ -186,11 +142,12 @@ function adicionar() {
 
     //valida se os campos foram preenchidos corretamente
     if (
-        descricao === "" ||
+        descricao.trim() === "" ||
         valorInput.value === "" ||
+        valor <= 0 ||
         categoria === ""
     ) {
-        alert("Preencha todos os campos.");
+        alert("Preencha todos os campos corretamente.");
         return;
     }
 
@@ -224,8 +181,8 @@ function adicionar() {
     criarMovimentacao(descricao, valor, tipo, categoria, novaMovimentacao.id);
 
     atualizarSaldo();
-    atualizarGraficoCategorias()
-
+    atualizarGraficoCategorias();
+    atualizarGraficoMensal();
     fecharModal();
 
 
@@ -233,7 +190,7 @@ function adicionar() {
     //para ser preenchido novamente
     descricaoInput.value = "";
     valorInput.value = "";
-
+    categoriaInput.value = "";
 
 }
 
@@ -292,7 +249,8 @@ function criarMovimentacao(descricao, valor, tipo, categoria, id) {
         item.remove();
 
         atualizarSaldo();
-        atualizarGraficoCategorias()
+        atualizarGraficoCategorias();
+        atualizarGraficoMensal();
     });
 
 }
@@ -338,3 +296,148 @@ function formatarMoeda(valor) {
 //         maximumFractionDigits: 1
 //     }).format(valor);
 // }
+
+
+//grafico de gastos mensais
+function atualizarGraficoMensal() {
+    const canvas = document.getElementById("grafico-mensal");
+
+    if (!canvas) {
+        return;
+    }
+
+    const gastosPorMes = {};
+
+    for (const movimentacao of movimentacoes) {
+        if (movimentacao.tipo !== "despesa") {
+            continue;
+        }
+
+        const data = new Date(movimentacao.data);
+
+        const mes = data.toLocaleDateString("pt-BR", {
+            month: "short",
+            year: "numeric"
+        });
+
+        if (!gastosPorMes[mes]) {
+            gastosPorMes[mes] = 0;
+        }
+
+        gastosPorMes[mes] += Number(movimentacao.valor);
+    }
+
+    const meses = Object.keys(gastosPorMes);
+    const valores = Object.values(gastosPorMes);
+
+    if (graficoMensal) {
+        graficoMensal.destroy();
+    }
+
+    graficoMensal = new Chart(canvas, {
+        type: "bar",
+
+        data: {
+            labels: meses,
+
+            datasets: [
+                {
+                    label: "Gastos mensais",
+                    data: valores,
+                    borderWidth: 3,
+                    tension: 0.3,
+                    fill: false
+                }
+            ]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+
+
+            scales: {
+                x: {
+                    ticks: {
+                        maxRotation: 35,
+                        minRotation: 35
+                    }
+                }
+            }
+        }
+    });
+}
+
+function atualizarGraficoCategorias() {
+    const despesas = movimentacoes.filter(function (mov) {
+        return mov.tipo === "despesa";
+    });
+
+    const totaisPorCategoria = {};
+
+    for (const despesa of despesas) {
+        const categoria = despesa.categoria;
+
+        if (totaisPorCategoria[categoria]) {
+            totaisPorCategoria[categoria] += Number(despesa.valor);
+        } else {
+            totaisPorCategoria[categoria] = Number(despesa.valor);
+        }
+    }
+
+    const categorias = Object.keys(totaisPorCategoria);
+    const valores = Object.values(totaisPorCategoria);
+
+    if (graficoCategorias) {
+        graficoCategorias.destroy();
+    }
+
+    const canvas =
+        document.getElementById("grafico-categorias");
+
+    graficoCategorias = new Chart(canvas, {
+        type: "doughnut",
+
+        data: {
+            labels: categorias,
+
+            datasets: [
+                {
+                    label: "Despesas",
+                    data: valores
+                }
+            ]
+        },
+
+
+        options: {
+            responsive: true,
+
+            plugins: {
+                legend: {
+                    position: "right",
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: "circle",
+                        padding: 14
+                    }
+                }
+            }
+        }
+
+
+    });
+}
+
+
+
+
+atualizarSaldo();
+atualizarGraficoCategorias();
+atualizarGraficoMensal();
