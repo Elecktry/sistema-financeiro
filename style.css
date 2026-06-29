@@ -122,6 +122,10 @@ h2 {
     margin-top: 30px;
 }
 
+.textoMovimentacao{
+    color: black;
+}
+
 li {
     list-style: none;
     background: #f7f7f7;

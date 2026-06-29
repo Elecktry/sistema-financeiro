@@ -204,7 +204,8 @@ function adicionar() {
 function criarMovimentacao(descricao, valor, tipo, categoria, id) {
 
     const item = document.createElement("li");
-    const texto = document.createElement("span");
+    const texto = document.createElement("h4");
+    texto.className = "textoMovimentacao";
     const botao = document.createElement("button");
     const descricaoFormatada =
         descricao.charAt(0).toUpperCase() + descricao.slice(1);
