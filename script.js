@@ -132,6 +132,8 @@ function adicionar() {
     const categoria =
         categoriaInput.value;
 
+    categoria.className = "categoriaMovimentacao";
+
 
     //checkbox
     const tipoInput = document.querySelector('input[name="tipo"]:checked');
@@ -202,45 +204,50 @@ function adicionar() {
 // └── trata exclusão
 
 function criarMovimentacao(descricao, valor, tipo, categoria, id) {
-
     const item = document.createElement("li");
-    const texto = document.createElement("h4");
-    texto.className = "textoMovimentacao";
-    const botao = document.createElement("button");
-    const descricaoFormatada =
-        descricao.charAt(0).toUpperCase() + descricao.slice(1);
 
+    const descricaoElemento = document.createElement("span");
+    const categoriaElemento = document.createElement("span");
+    const valorElemento = document.createElement("span");
+    const botaoExcluir = document.createElement("button");
 
-    let sinal;
+    descricaoElemento.textContent = descricao;
+
+    categoriaElemento.textContent = categoria;
+    categoriaElemento.classList.add(
+        "categoria",
+        `categoria-${categoria.toLowerCase()}`
+    );
+
+    valorElemento.textContent = valor.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+    });
+
+    botaoExcluir.textContent = "Excluir";
+    botaoExcluir.classList.add("botao-excluir");
+
+    item.classList.add("movimentacao");
 
     if (tipo === "receita") {
-        sinal = "+";
         item.classList.add("receita");
+        valorElemento.classList.add("valor-receita");
     } else {
-        sinal = "-";
         item.classList.add("despesa");
+        valorElemento.classList.add("valor-despesa");
     }
 
-
-
-
-    texto.textContent =
-        `${descricaoFormatada}  ${sinal} ${formatarMoeda(valor)} ${categoria}`;
-
-    botao.textContent = "Excluir";
-
-    // ul =  listaa
-    // └── li = item
-    //     └── button = botão de exclusão
-    item.appendChild(texto);
-    item.appendChild(botao);
+    item.appendChild(descricaoElemento);
+    item.appendChild(categoriaElemento);
+    item.appendChild(valorElemento);
+    item.appendChild(botaoExcluir);
 
     lista.appendChild(item);
 
-    //função do botão excluir
-    botao.addEventListener("click", function () {
-
-        movimentacoes = movimentacoes.filter(mov => mov.id !== id);
+    botaoExcluir.addEventListener("click", function () {
+        movimentacoes = movimentacoes.filter(
+            movimentacao => movimentacao.id !== id
+        );
 
         localStorage.setItem(
             "movimentacoes",
@@ -252,8 +259,8 @@ function criarMovimentacao(descricao, valor, tipo, categoria, id) {
         atualizarGraficoCategorias();
         atualizarGraficoMensal();
     });
-
 }
+
 
 function atualizarSaldo() {
     let totalReceitas = 0;
@@ -374,15 +381,15 @@ function atualizarGraficoMensal() {
 
 
             scales: {
-                    x: {
-                        ticks: {
-                            maxRotation: 35,
-                            minRotation: 35
-                        }
+                x: {
+                    ticks: {
+                        maxRotation: 35,
+                        minRotation: 35
                     }
                 }
             }
-        });
+        }
+    });
 }
 
 function atualizarGraficoCategorias() {

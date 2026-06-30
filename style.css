@@ -118,8 +118,92 @@ h2 {
     min-height: 42px;
 }
 
-.movimentacoes {
-    margin-top: 30px;
+
+/* CAMPO DE MOVIMENTAÇÃO */
+
+
+.movimentacao {
+    display: grid;
+    grid-template-columns: 1fr 130px 150px 70px;
+    align-items: center;
+    gap: 15px;
+
+    background-color: #f7f7f7;
+    padding: 14px 12px;
+    margin-bottom: 8px;
+
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+/* ESTILO GERAL CATEGORIA */
+.categoria {
+    width: fit-content;
+
+    padding: 5px 10px;
+    border-radius: 7px;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    text-transform: capitalize;
+}
+
+/* CORES DE CADA CATEGORIA */
+.categoria-trabalho {
+    background-color: #dcfce7;
+    color: #16a34a;
+}
+
+.categoria-moradia {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.categoria-alimentacao {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.categoria-transporte {
+    background-color: #ffedd5;
+    color: #ea580c;
+}
+
+.categoria-lazer {
+    background-color: #f3e8ff;
+    color: #9333ea;
+}
+
+.categoria-outros {
+    background-color: #e5e7eb;
+    color: #4b5563;
+}
+
+/* CORES DOS VALORES */
+.valor-receita {
+    color: #16a34a;
+}
+
+.valor-despesa {
+    color: #dc2626;
+}
+
+/* BOTÃO EXCLUIR */
+.botao-excluir {
+    border: none;
+    border-radius: 5px;
+
+    background-color: #ef4444;
+    color: white;
+
+    padding: 7px 10px;
+
+    cursor: pointer;
+}
+
+.botao-excluir:hover {
+    background-color: #dc2626;
 }
 
 .textoMovimentacao{
@@ -157,16 +241,6 @@ li {
 li span {
     min-width: 0;
     overflow-wrap: anywhere;
-}
-
-li button {
-    flex-shrink: 0;
-    background-color: #ef4444;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
 }
 
 .tipos {
@@ -638,5 +712,20 @@ li button {
 
     .modal-acoes {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+    .movimentacao {
+        grid-template-columns: 1fr auto;
+    }
+
+    .categoria {
+        grid-column: 1;
+    }
+
+    .botao-excluir {
+        grid-column: 2;
+        grid-row: 1 / 3;
     }
 }
