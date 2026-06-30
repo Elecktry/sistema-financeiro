@@ -128,10 +128,10 @@ Durante o desenvolvimento, foram aplicados conceitos como:
 * [x] Criar modal para novas movimentações
 * [x] Adicionar gráfico de despesas por categoria
 * [x] Publicar o projeto na Vercel
+* [x] Melhorar a responsividade
 * [ ] Adicionar filtro de movimentações
 * [ ] Adicionar edição de movimentações
 * [ ] Criar gráfico de evolução do saldo
-* [ ] Melhorar a responsividade
 * [ ] Adicionar tema escuro
 
 ---
