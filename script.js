@@ -248,7 +248,6 @@ function criarMovimentacao(descricao, valor, tipo, categoria, id) {
         );
 
         item.remove();
-
         atualizarSaldo();
         atualizarGraficoCategorias();
         atualizarGraficoMensal();
